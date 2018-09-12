@@ -1,6 +1,6 @@
 # 1. Algorithm
 
-- 1 . 
+- 231 .   2的幂 
 
 
 # 2. Review
