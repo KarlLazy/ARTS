@@ -65,4 +65,4 @@ Reducing time and space consumption
 大概是无峰值的变成有峰值，有峰值的转小写。  
 # 4. Share
 97 Things Every Programmer Should Know  
-这本书还是蛮不错的
+这本书还是蛮不错的。  
