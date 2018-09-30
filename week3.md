@@ -60,9 +60,9 @@ Reducing time and space consumption
 # 3. Tip
 最近在学习sql语句，遇到了几个小问题，不过还不是很清楚原理。    
 - 1 .执行过sql语句后  
-表中字段，room_no，picPath  
-返回信息，roomNo，picpath  
-大概是无峰值的变成有峰值，有峰值的转小写  
+表中字段，room_no，picPath；  
+返回信息，roomNo，picpath；  
+大概是无峰值的变成有峰值，有峰值的转小写。  
 # 4. Share
-Oreilly.97.Things.Every.Programmer.Should.Know  
+97 Things Every Programmer Should Know  
 这本书还是蛮不错的
