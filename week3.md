@@ -52,9 +52,17 @@ class Solution {
         return carry == 0 ? digits : res;  
     }  
 }
-
+```
 # 2. Review
 Java performance  
-Reducing time and space consumption
+Reducing time and space consumption  
+这篇文章对降低时间和空间开销做了比较清晰的阐述，感觉挺有用的。  
 # 3. Tip
+最近在学习sql语句，遇到了几个小问题，不过还不是很清楚原理。    
+- 1 .执行过sql语句后  
+表中字段，room_no，picPath  
+返回信息，roomNo，picpath  
+大概是无峰值的变成有峰值，有峰值的转小写  
 # 4. Share
+Oreilly.97.Things.Every.Programmer.Should.Know  
+这本书还是蛮不错的
