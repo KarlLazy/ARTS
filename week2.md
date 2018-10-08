@@ -85,5 +85,5 @@ crtl+shift+F：格式化代码；
 crtl+shift+R：打开资源；  
 
 # 4. Share
-原文看不懂，只能先看些别人啃过的东西。  
+原文看不懂，只能先看些别人嚼过的东西。  
 [V神论文摘要](https://mp.weixin.qq.com/s/UPZRVPfu2wNFDCQSbk1Lgg)
