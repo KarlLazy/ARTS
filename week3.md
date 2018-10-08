@@ -58,7 +58,7 @@ Java performance
 Reducing time and space consumption  
 这篇文章对降低时间和空间开销做了比较清晰的阐述，感觉挺有用的。  
 # 3. Tip
-最近在学习sql语句，遇到了几个小问题，不过还不是很清楚原理。    
+最近在学习sql语句，遇到几个小问题，不过还不是很清楚原理。    
 - 1 .执行过sql语句后  
 表中字段，room_no，picPath；  
 返回信息，roomNo，picpath；  
