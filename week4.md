@@ -1,68 +1,60 @@
 # 1. Algorithm
 
-- 231 .  2的幂   
-  
-给定一个整数，编写一个函数来判断它是否是 2 的幂次方。
-  
+- 26 .  删除排序数组的重复项  
+给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。  
+不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。  
 示例 1:  
-输入: 1   
-输出: true  
-解释: 20 = 1  
-  
+给定数组 nums = [1,1,2],  
+函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。  
+你不需要考虑数组中超出新长度后面的元素。  
 示例 2:  
-输入: 16  
-输出: true  
-解释: 24 = 16
-  
-示例 3:  
-输入: 218  
-输出: false
-
-我的想法是设置一个区间，即[2<<i,2<<(i+1)],如果输入的数在这个区间中，就与边界值进行比较。  
+给定 nums = [0,0,1,1,1,2,2,3,3,4],  
+函数应该返回新的长度 5, 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4。  
+你不需要考虑数组中超出新长度后面的元素。  
   
   
 ```
 
-class Solution {  
-    public boolean isPowerOfTwo(int n) {
-        if(n < 1){
-            return false;
-        }
-        else if(n == 1){
-            return true;
-        }
-        else{
-            int i = 0;
-            int j = 32;
-            int a,b;
-            while (j-- >0){
-                a = 2<<i;
-                b = 2<<(i+1);
-                if(n >= a && n<= b){
-                    if(n == a || n == b){
-                        return true;
-                    }
-                }
-                else
-                    i++; 
-            }
-            return false;
-        }
-    }
-}
-```
-
-本来以为自己思路挺简单的，不过看到最优解时还是惊到了。这个方法里只用到了逻辑运算，就解决了问题。当转化为二进制，2的幂只有第一位是1，当减去1之后，原为1的位变为0，下的全为1，与运算之后得到的结果位0。  
-
-
-```
 class Solution {
-    public boolean isPowerOfTwo(int n) {
-        return (n > 0) && (n & (n - 1)) == 0;
-    }
+	public int removeDuplicates(int[] nums) {
+		int temp = 0;
+		int t1 = 0;
+		for (int i = 0; i < nums.length;) {
+			t1 = i;
+			nums[temp] = nums[i];
+			temp++;
+			for (int j = i + 1; j < nums.length; j++) {
+				if (nums[j] != nums[i]) {
+					i = j;
+					break;
+				}
+			}
+			if (t1 == i)
+				break;
+		}
+		return temp;
+	}
 }
-//如果一个数是2的幂，它与它减去1进行与运算得到的结果应该为0。
 ```
+
+手法还是很稚嫩，想的也不是很清楚。之后要先把思路写出来，再去实现。  
+
+
+```
+public int removeDuplicates(int[] nums) {
+    if (nums.length == 0) return 0;
+    int i = 0;
+    for (int j = 1; j < nums.length; j++) {
+        if (nums[j] != nums[i]) {
+            i++;
+            nums[i] = nums[j];
+        }
+    }
+    return i + 1;
+}
+
+```
+用双指针的方法，快指针j，慢指针i，对应的值相等时，就增加j以跳过重复项，不等时就把nums[j]赋值到nums[i+1]，然后递增i。  
 
 
 # 2. Review
