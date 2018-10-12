@@ -73,13 +73,23 @@ class Solution {
 有些东西还是看不清楚，思维有有点僵化。拿到这一题，立马就想求最值，这是最平庸的方法。买股票，追求的是利润，只要第二天比前一天价格更高，就是有利润的。只需要简单的减一些就能解决问题。需要在学一遍算法了。  
 
 # 2. Review
-英文文档也看了些，不过我的阅读能力还是不够，好多地方都没看懂，也没怎么找到适合初学者看的文章。  
-接下来会多看些短篇和论坛，现在暂时就先分享中文的文章  
-[http传输原理](https://www.cnblogs.com/chenliyang/p/6558756.html),这个对http介绍的也算蛮详细的，比较适合入门吧。  
+[How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)  
+提问之前必须要做好自己的部分，不能遇到一个问题立马就去提问。  
+只有思考才有收获，不然很容易面对同样的错误束手无措。    
   
 # 3. Tip
-记录下最近常用的工具快捷键，主要是eclipse，虽然以前也有用过，不过只知道要怎么用，现在想汇总一下。  
-  
+List.add()分为有参和无参两种形式:  
+无参:从list的尾部进行插入，size+1(size是指当前包含元素个数);  
+有参:即List.add(index,e),再位置index插入e，原来index位置上及其后面的值索引加一;  
+如果在声明list时，指定了长度，就类似于声明了一个长度可变的数组，只不过是空的。
+
+```  
+List<String> list =new ArrayList<>(2);  
+//list.add(1,"OK");直接插入会报错，因为此时size=0;只有index<=size时才能插入;  
+list.add("OK");  
+list.set(1,"NO");//这里也会报错，set只能替换已经有元素的位置，index<size;  
+```
+
 首先是调试：  
 F5：Step Into（debug）进入当前行的方法内部,一步一步执行；  
 F6：Step over（debug）执行当前行,但不进入执行细节；  
