@@ -47,7 +47,8 @@ public int removeDuplicates(int[] nums) {
 }
 
 ```
-用双指针的方法，快指针j，慢指针i，对应的值相等时，就增加j以跳过重复项，不等时就把nums[j]赋值到nums[i+1]，然后递增i。  
+用双指针的方法，快指针j，慢指针i，  
+对应的值相等时，就增加j以跳过重复项，不等时就把nums[j]赋值到nums[i+1]，然后递增i。  
 
 - 26 .  买卖股票的最佳时机  
 
@@ -70,7 +71,8 @@ class Solution {
 }
 
 ```
-有些东西还是看不清楚，思维有有点僵化。拿到这一题，立马就想求最值，这是最平庸的方法。买股票，追求的是利润，只要第二天比前一天价格更高，就是有利润的。只需要简单的减一些就能解决问题。需要在学一遍算法了。  
+有些东西还是看不清楚，思维有有点僵化。拿到这一题，立马就想求最值，这是最平庸的方法。  
+买股票，追求的是利润，只要第二天比前一天价格更高，就是有利润的。只需要简单的减一些就能解决问题。需要在学一遍算法了。  
 
 # 2. Review
 [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)  
@@ -88,19 +90,8 @@ List<String> list =new ArrayList<>(2);
 //list.add(1,"OK");直接插入会报错，因为此时size=0;只有index<=size时才能插入;  
 list.add("OK");  
 list.set(1,"NO");//这里也会报错，set只能替换已经有元素的位置，index<size;  
-```
-
-首先是调试：  
-F5：Step Into（debug）进入当前行的方法内部,一步一步执行；  
-F6：Step over（debug）执行当前行,但不进入执行细节；  
-F7：Step return（debug）返回上一步执行的方法（相对应F5）；  
-F8：Resume（debug）恢复执行,表示接着执行代码,直接跳到下一个断点；  
-  
-然后是一些零碎的：  
-crtl+shift+P：匹配大括号；  
-crtl+shift+F：格式化代码；  
-crtl+shift+R：打开资源；  
+```  
 
 # 4. Share
-原文看不懂，只能先看些别人啃过的东西。  
-[V神论文摘要](https://mp.weixin.qq.com/s/UPZRVPfu2wNFDCQSbk1Lgg)
+[如何有效的报告bug](https://www.chiark.greenend.org.uk/~sgtatham/bugs-cn.html)  
+在网上搜问题的时候找到的文章，应该看一下。  
