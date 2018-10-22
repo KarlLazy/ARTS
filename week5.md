@@ -1,97 +1,55 @@
 # 1. Algorithm
 
-- 26 .  删除排序数组的重复项  
+- 134 .  [加油站](https://leetcode-cn.com/problems/gas-station/)
 
-给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。  
-不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。  
+在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。  
+你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。  
+如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。    
   
   
 ```
 
-class Solution {
-	public int removeDuplicates(int[] nums) {
-		int temp = 0;
-		int t1 = 0;
-		for (int i = 0; i < nums.length;) {
-			t1 = i;
-			nums[temp] = nums[i];
-			temp++;
-			for (int j = i + 1; j < nums.length; j++) {
-				if (nums[j] != nums[i]) {
-					i = j;
-					break;
-				}
-			}
-			if (t1 == i)
-				break;
-		}
-		return temp;
-	}
-}
+class Solution {  
+    public int canCompleteCircuit(int[] gas, int[] cost) {  
+        // 参数检验  
+        if (gas == null || cost == null || gas.length == 0 || gas.length != cost.length) {  
+            return -1;  
+        }  
+
+        // 记录访问的起始点  
+        int start = 0;  
+        // 加的气和消耗的气的总差值  
+        int total = 0;  
+        // 从start位置开始，加的气和消耗的气的总差值  
+        int sum = 0;  
+        for (int i = 0; i < gas.length; i++) {  
+            total += (gas[i] - cost[i]);  
+            // 如是油箱没有油了  
+            if (sum < 0) {  
+                // 重新设置油箱中的油  
+                sum = gas[i] - cost[i];  
+                // 记录新的起点位置  
+                start = i;  
+            } else {  
+                // 油箱中还有油，更新油箱中的油数  
+                sum += (gas[i] - cost[i]);  
+            }  
+        }  
+        return total >= 0 ? start : -1;  
+    }  
+}  
 ```
-
-手法还是很稚嫩，想的也不是很清楚。之后要先把思路写出来，再去实现。  
-
-
-```
-public int removeDuplicates(int[] nums) {
-    if (nums.length == 0) return 0;
-    int i = 0;
-    for (int j = 1; j < nums.length; j++) {
-        if (nums[j] != nums[i]) {
-            i++;
-            nums[i] = nums[j];
-        }
-    }
-    return i + 1;
-}
-
-```
-用双指针的方法，快指针j，慢指针i，  
-对应的值相等时，就增加j以跳过重复项，不等时就把nums[j]赋值到nums[i+1]，然后递增i。  
-
-- 122 .  买卖股票的最佳时机  
-
-给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。  
-设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。  
-注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）  
-
-```
-class Solution {
-    public int maxProfit(int[] prices) {
-        if(prices.length < 0)
-            return 0;
-        int sum=0;
-        for(int i=1;i<prices.length;i++){
-            if(prices[i] - prices[i-1] > 0)
-                sum+=prices[i] - prices[i-1];
-        }
-        return sum;
-    }
-}
-
-```
-有些东西还是看不清楚，思维有有点僵化。拿到这一题，立马就想求最值，这是最平庸的方法。  
-买股票，追求的是利润，只要第二天比前一天价格更高，就是有利润的。只需要简单的减一些就能解决问题。需要在学一遍算法了。  
+这个是我在网上找的一个方法。  
+我自己编写的方法考虑不周到，对gas和cost的总和分别进行了计算，在数组非常大的情况下，这种方法会超出限度。  
+网上的方法是直接计算差值，而不计算和值，这样就省时省空间，也能够承受住大数组的碾压。  
+核心部分都是对当前油的和与消耗进行比较，这个还是比较容易的，就是看能够更简单的处理。   
 
 # 2. Review
-[How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html)  
-提问之前必须要做好自己的部分，不能遇到一个问题立马就去提问。  
-只有思考才有收获，不然很容易面对同样的错误束手无措。    
+[mybatis](http://www.mybatis.org/mybatis-3/zh/index.html)  
+最近在学习springboot+mybatis，最直观的感受就是应用起来简单了许多。  
   
 # 3. Tip
-List.add()分为有参和无参两种形式:  
-无参:从list的尾部进行插入，size+1(size是指当前包含元素个数);  
-有参:即List.add(index,e),再位置index插入e，原来index位置上及其后面的值索引加一;  
-如果在声明list时，指定了长度，就类似于声明了一个长度可变的数组，只不过是空的。
+@Cacheable：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存。当重复使用相同参数调用方法的时候，方法本身不会被调用执行，即方法本身被略过了，取而代之的是方法的结果直接从缓存中找到并返回了。  
+@CachePut：保证方法被调用，又希望结果被缓存。这个注释可以确保方法被执行，同时方法的返回值也被记录到缓存中。  
+@CachePut和@Cacheable这两个标签可以结合使用，当需要根据请求改变值的时候，利用@CachePut将值改变并写入到缓存中，而@Cacheable标签除了第一次之外，一直是取的缓存的值。  
 
-```  
-List<String> list =new ArrayList<>(2);  
-//list.add(1,"OK");直接插入会报错，因为此时size=0;只有index<=size时才能插入;  
-list.add("OK");  
-list.set(1,"NO");//这里也会报错，set只能替换已经有元素的位置，index<size;  
-```  
-
-# 4. Share
-[如何有效的报告bug](https://www.chiark.greenend.org.uk/~sgtatham/bugs-cn.html)  
-在网上搜问题的时候找到的文章，应该看一下。  
