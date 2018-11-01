@@ -1,5 +1,5 @@
 # ARTS
-## What you need to do is:
+## What do you need to do is:
 
  - Algorithm：每周至少做一个 leetcode 的算法题  
   
