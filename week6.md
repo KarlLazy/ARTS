@@ -1,48 +1,48 @@
 # 1. Algorithm
 
-- 134 .  [加油站](https://leetcode-cn.com/problems/gas-station/)
+- 44 .  [通配符匹配](https://leetcode-cn.com/problems/wildcard-matching/)
 
-在一条环路上有 N 个加油站，其中第 i 个加油站有汽油 gas[i] 升。  
-你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。  
-如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1。    
+给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。  
+'?' 可以匹配任何单个字符。  
+' * ' 可以匹配任意字符串（包括空字符串）。  
+两个字符串完全匹配才算匹配成功。  
+说明:  
+s 可能为空，且只包含从 a-z 的小写字母。  
+p 可能为空，且只包含从 a-z 的小写字母，以及字符 ? 和 *。      
   
   
 ```
 
-class Solution {  
-    public int canCompleteCircuit(int[] gas, int[] cost) {  
-        // 参数检验  
-        if (gas == null || cost == null || gas.length == 0 || gas.length != cost.length) {  
-            return -1;  
-        }  
-
-        // 记录访问的起始点  
-        int start = 0;  
-        // 加的气和消耗的气的总差值  
-        int total = 0;  
-        // 从start位置开始，加的气和消耗的气的总差值  
-        int sum = 0;  
-        for (int i = 0; i < gas.length; i++) {  
-            total += (gas[i] - cost[i]);  
-            // 如是油箱没有油了  
-            if (sum < 0) {  
-                // 重新设置油箱中的油  
-                sum = gas[i] - cost[i];  
-                // 记录新的起点位置  
-                start = i;  
-            } else {  
-                // 油箱中还有油，更新油箱中的油数  
-                sum += (gas[i] - cost[i]);  
-            }  
-        }  
-        return total >= 0 ? start : -1;  
-    }  
-}  
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int s_len = s.length(), p_len = p.length();
+        int s_index = 0, p_index = 0;
+        int s_start = 0, p_start = -1;
+        while(s_index < s_len){
+            if(p_index < p_len && p.charAt(p_index) == '*'){
+                s_start = s_index;
+                p_start = ++p_index;
+            }else if(p_index < p_len && (p.charAt(p_index) == '?' || p.charAt(p_index) == s.charAt(s_index))){
+                s_index++;
+                p_index++;
+            }else if(p_start > -1){
+                s_index = ++s_start;
+                p_index = p_start;
+            }else{
+                return false;
+            }
+        }
+        while(p_index < p_len){
+            if(p.charAt(p_index) != '*'){
+                return false;
+            }
+            p_index++;
+        }
+        return true;
+    }
+}
 ```
-这个是我在网上找的一个方法。  
-我自己编写的方法考虑不周到，对gas和cost的总和分别进行了计算，在数组非常大的情况下，这种方法会超出限度。  
-网上的方法是直接计算差值，而不计算和值，这样就省时省空间，也能够承受住大数组的碾压。  
-核心部分都是对当前油的和与消耗进行比较，这个还是比较容易的，就是看是否能够更简单的处理。   
+这题的难点在于 * 号的匹配，因为不清楚它代表了几个字符。因此可以用贪心的方法，先尝试匹配0个字符，未成功则匹配1个字符，以此类推。     
 
 # 2. Review
 [slf4j](https://www.slf4j.org/faq.html)  
