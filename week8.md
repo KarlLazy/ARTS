@@ -1,70 +1,64 @@
 # 1. Algorithm
 
-- 189 .  [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+- 20 .  [有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
 
-给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。   
+给定一个只包括 '(',')','{','}','[',']' 的字符串，判断字符串是否有效。  
+有效字符串需满足：  
+1.左括号必须用相同类型的右括号闭合。  
+2.左括号必须以正确的顺序闭合。  
+注意空字符串可被认为是有效字符串。  
     
 ```
 
-class Solution {
-    public void rotate(int[] nums, int k) {
-       if(nums == null);
-        else{
-            k %= nums.length;
-            reverse(nums,0,nums.length-1);
-            reverse(nums,0,k-1);
-            reverse(nums,k,nums.length-1);
-        }
-    } 
-    public void reverse(int []array,int i,int j){
-        int temp=0;
-        while(i<j){
-            temp = array[j];
-            array[j] = array[i];
-            array[i] =temp;
-            i++;
-            j--;
-        }
-    }
-}
-```
-  
-算法是通过三个翻转进行的，先对整个数组进行翻转，然后把数组从k处分为两端，分别进行翻转.  
-  
-```
+func isValid(s string) bool {
+	if len(s) == 0 {
+		return true
+	}
 
-class Solution {
-	public void rotate(int[] nums, int k) {
-//       方法1，原地交换 时间n(o),空间n(1)
-		k = k % nums.length;
-		int p = 0;
-		int start = 0;
-		for (int i = 0; i < nums.length; i++) {
-			p = (p + k) % nums.length;
-			if (p == start) {
-				p++;
-				start++;
-				continue;
+	if len(s)%2 == 1 {
+		return false
+	}
+
+	flag := true
+	m := make(map[byte]byte)
+	m['('] = ')'
+	m['['] = ']'
+	m['{'] = '}'
+	sli := make([]byte, 0)
+
+	for i, b := range s {
+		if i == 0 && (s[i] == ')' || s[i] == ']' || s[i] == '}') {
+			flag = false
+			break
+		}
+
+		if b == '(' || b == '[' || b == '{' {
+			sli = append(sli, byte(b))
+		} else if b == ')' || b == ']' || b == '}' {
+			right := sli[len(sli)-1]
+			sli = sli[:len(sli)-1]
+			if m[right] != byte(b) {
+				flag = false
+				break
 			}
-			nums[start] = nums[start] ^ nums[p];
-			nums[p] = nums[start] ^ nums[p];
-			nums[start] = nums[p] ^ nums[start];
+		}
+
+		if i == len(s)-1 && len(sli) != 0 {
+			flag = false
 		}
 	}
+	return flag
 }
 ```
-这个是用原地方法解决的，感觉比较好，就摘抄下来了。  
-异或^：把数字转为二进制，从高位开始进行比较，相同则为0，不相同则为1。  
+  
+如果是左括号，就添加进slice；如果是右括号，就进行匹配并调slice长度
+  
 
 # 2. Review
 
   
 # 3. Tip
-一直对接口有点疑惑。平时开发的时候总听见完成这个接口，测试那个接口，就是不清楚这里的接口到底指什么。
-现在就比较清楚了。  
-在java语法上，接口就是interface，是对方法的抽象，它是抽象方法的集合，利用接口可以达到API定义和实现分离的目的。  
-而在生活常常提到的接口，实际上是API，Application Programming Interface,应用程序编程接口，是一组程序功能集合，通常用在不同系统之间的数据交换。  
+在使用golang.time包中，AddDate(y, m, d)方法时，发现对月份的处理和想象中的不一样。比如使用AddDate(0,1,0)时，按照自己的想法会得到一个月后的对应日期，但是对于1月31日来说，增加一个月会得到2月31日，而2月没有31日，所以就会转到三月，最终得到3月3日。
+这个方法不适合处理年和月，只用来处理日还是蛮好用的。  
 
-# 4. Share
-[单元测试](https://baike.baidu.com/item/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/1928697?fr=aladdin)  
-刚刚接触单元测试，百度百科的解释还是很适合入门的。    
+# 4. Share  
